@@ -1,17 +1,14 @@
 // src/server.js
 
-// Requerir módulos (usando ES Modules)
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import mealRoutes from './routers/mealRoutes.js'; // Asegúrate que la ruta es correcta y tiene la extensión .js
+import routerEstudiante from './routers/estudianteRoutes.js';
 
 // Inicializaciones
 const app = express();
 dotenv.config(); // Carga las variables de entorno
-
-// Configuraciones (tu configuración existente)
-// app.set('port', process.env.PORT || 3000); // Esto ya lo haces con app.get('port') más abajo.
 
 // Middlewares
 app.use(express.json()); // Permite a Express leer JSON en el cuerpo de las solicitudes
@@ -28,6 +25,16 @@ app.use('/api/meals', mealRoutes); // ¡Aquí usamos el mealRoutes importado!
 app.get('/', (req, res) => {
     res.send('Servidor de Recetas TheMealDB funcionando. Prueba /api/meals/random o /api/meals/search?name=chicken');
 });
+
+// ESTUDIANTE REGISTRO
+// Ruta principal
+app.get('/',(req,res)=>res.send("Server on"))
+
+// Rutas para veterinarios
+app.use('/api',routerEstudiante)
+
+// Manejo de una ruta que no sea encontrada
+app.use((req,res)=>res.status(404).send("Endpoint no encontrado - 404"))
 
 // Exportar la instancia de express por medio de app
 export default app;
