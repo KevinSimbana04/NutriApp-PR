@@ -1,8 +1,7 @@
 // src/controllers/mealController.js
 
-import fetch from 'node-fetch'; // Usamos node-fetch para las solicitudes HTTP (import para ES Modules)
+import { default as fetch } from 'node-fetch';
 
-// *** CORRECCIÓN IMPORTANTE: BASE_URL correcta con protocolo HTTPS y sin endpoint específico ***
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/';
 
 // Función auxiliar para manejar la obtención de datos y errores
@@ -12,10 +11,13 @@ const fetchData = async (url) => {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
         }
-        return await response.json();
+        // Usar response.json() solo si el cuerpo no está vacío
+        const text = await response.text();
+        return text ? JSON.parse(text) : {};
     } catch (error) {
         console.error("Error fetching data from TheMealDB:", error);
-        throw error;
+        // Propaga el error para que el controlador lo maneje con status 500
+        throw error; 
     }
 };
 
@@ -26,9 +28,19 @@ const fetchData = async (url) => {
  */
 const getRandomMeal = async (req, res) => {
     try {
-        const data = await fetchData(`${BASE_URL}random.php`); // Usa BASE_URL + endpoint
+        const data = await fetchData(`${BASE_URL}random.php`);
+        
         if (data.meals && data.meals.length > 0) {
             const meal = data.meals[0];
+
+            // Lógica optimizada para extraer ingredientes
+            const ingredients = Array.from({ length: 20 }, (_, i) => i + 1)
+                .map(i => ({
+                    ingredient: meal[`strIngredient${i}`],
+                    measure: meal[`strMeasure${i}`]
+                }))
+                .filter(item => item.ingredient && item.ingredient.trim() !== ''); // Filtra vacíos
+
             const simplifiedMeal = {
                 id: meal.idMeal,
                 name: meal.strMeal,
@@ -38,21 +50,15 @@ const getRandomMeal = async (req, res) => {
                 thumbnail: meal.strMealThumb,
                 youtube: meal.strYoutube,
                 source: meal.strSource,
-                ingredients: []
+                ingredients: ingredients // Lista de ingredientes limpia
             };
 
-            for (let i = 1; i <= 20; i++) {
-                const ingredient = meal[`strIngredient${i}`];
-                const measure = meal[`strMeasure${i}`];
-                if (ingredient && ingredient.trim() !== '') {
-                    simplifiedMeal.ingredients.push({ ingredient, measure });
-                }
-            }
             res.status(200).json(simplifiedMeal);
         } else {
             res.status(404).json({ message: "No se encontró una comida aleatoria." });
         }
     } catch (error) {
+        // El error ya fue registrado en fetchData
         res.status(500).json({ message: "Error al obtener la comida aleatoria.", error: error.message });
     }
 };
@@ -68,7 +74,8 @@ const searchMealsByName = async (req, res) => {
         return res.status(400).json({ message: "Se requiere un parámetro 'name' para la búsqueda." });
     }
     try {
-        const data = await fetchData(`${BASE_URL}search.php?s=${encodeURIComponent(name)}`); // Usa BASE_URL + endpoint + parámetro
+        const data = await fetchData(`${BASE_URL}search.php?s=${encodeURIComponent(name)}`);
+        
         if (data.meals) {
             const simplifiedMeals = data.meals.map(meal => ({
                 id: meal.idMeal,
