@@ -1,9 +1,11 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import nutriAppLogo from '../assets/nutriApp.png'
+import storeAuth from '../context/storeAuth'
 
 const Dashboard = () => {
     const location = useLocation()
     const urlActual = location.pathname
+    const { clearToken } = storeAuth()
     return (
         <div className='md:flex md:min-h-screen'>
 
@@ -38,7 +40,7 @@ const Dashboard = () => {
                     </div>
                     <div>
                         <Link to='/' className=" text-white mr-3 text-md block hover:bg-red-900 text-center
-                        bg-red-800 px-4 py-1 rounded-lg">Exit</Link>
+                        bg-red-800 px-4 py-1 rounded-lg" onClick={() => clearToken()}>Exit</Link>
                     </div>
                 </div>
                 <div className='overflow-y-scroll p-8'>

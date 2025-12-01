@@ -4,13 +4,15 @@ import { LuBotMessageSquare } from "react-icons/lu";
 import { BiScan } from "react-icons/bi";
 import { GrSchedule } from "react-icons/gr";
 
+import { FaBalanceScaleRight } from "react-icons/fa";
+import { FaCameraRetro } from "react-icons/fa";
+import { TbToolsKitchen2 } from "react-icons/tb";
+
 import { Link } from 'react-router-dom'
 import { MdDashboard } from "react-icons/md";
 import { FaRobot } from "react-icons/fa";
 import { FaCommentSms } from "react-icons/fa6";
-import { TbDog } from "react-icons/tb";
 import { FaUserDoctor } from "react-icons/fa6";
-import { GiMedicines } from "react-icons/gi";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
@@ -110,47 +112,43 @@ export const Home = () => {
                 <div className='my-10 flex justify-between flex-wrap gap-5'>
 
                     <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 sm:flex-1">
-                        <FaUserDoctor className='inline text-5xl' />
-                        <h4 className="text-xl font-jaldi py-4 text-primary hover:font-bold">Nutricional Plan</h4>
-                        <p className="my-4 px-2">This app allow</p>
-                        <hr className="border-1 border-accent absolute w-full" />
-                    </div>
-
-
-                    <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 bg-red-50 sm:flex-1">
-                        <TbDog className='inline text-5xl' />
-                        <h4 className="text-xl font-bold py-4 text-amber-700 hover:underline">Management Patients</h4>
-                        <p className="my-4 px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae,
-                            similique sint eius consectetur rerum voluptate rem tenetur quisquam veniam quos ad facilis alias
-                            necessitatibus.</p>
-                        <hr className="border-1 border-amber-900 absolute w-full" />
-                    </div>
-
-                    <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 bg-red-50 sm:flex-1">
-                        <GiMedicines className='inline text-5xl' />
-                        <h4 className="text-xl font-bold py-4 text-amber-700 hover:underline">Management Treatments</h4>
-                        <p className="my-4 px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae,
-                            similique sint eius consectetur rerum voluptate rem tenetur quisquam veniam quos ad facilis alias
-                            necessitatibus.</p>
-                        <hr className="border-1 border-amber-900 absolute w-full" />
+                        <FaBalanceScaleRight className='inline text-5xl' />
+                        <h4 className="text-xl font-jaldi py-4 text-primary hover:font-bold">Calculadora Nutricional</h4>
+                        <p className="my-4 px-2">Controla de manera precisa las calorias, proteinas y grasas para alcanzar objetivos 
+                            de salud esperados.<br/><br/></p>
+                        <hr className="border-1 border-primary absolute w-full" />
                     </div>
 
                     <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 sm:flex-1">
-                        <FaCommentSms className='inline text-5xl' />
-                        <h4 className="text-xl font-bold py-4 text-amber-700 hover:underline">Realtime Chat</h4>
-                        <p className="my-4 px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae,
-                            similique sint eius consectetur rerum voluptate rem tenetur quisquam veniam quos ad facilis alias
-                            necessitatibus.</p>
-                        <hr className="border-1 border-amber-900 absolute w-full" />
+                        <FaCameraRetro className='inline text-5xl' />
+                        <h4 className="text-xl font-jaldi py-4 text-primary hover:font-bold">Reconocimiento Visual de Alimentos</h4>
+                        <p className="my-4 px-2">Se registra el valor nutricional de la comida al instante con una foto y guardado en calendario
+                            para planes de alimentacion a lo largo de la semana.</p>
+                        <hr className="border-1 border-primary absolute w-full" />
                     </div>
+
+                    <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 sm:flex-1">
+                        <TbToolsKitchen2 className='inline text-5xl' />
+                        <h4 className="text-xl font-jaldi py-4 text-primary hover:font-bold">Habilidades en cocina</h4>
+                        <p className="my-4 px-2">Accede a una biblioteca de recetas saludables y deliciosas, que te ayuda a mejorar tus
+                            tus habilidades culinarias y aprende a combinar alimentos de forma nutritiva y efectiva.</p>
+                        <hr className="border-1 border-primary absolute w-full" />
+                    </div>
+
+                    <div className="text-center shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.3)] hover:shadow-[0.1rem_0.1rem_1rem_rgba(0,0,0,0.5)] transition-shadow duration-300 relative pt-4 sm:flex-1">
+                        <FaUserDoctor className='inline text-5xl' />
+                        <h4 className="text-xl font-jaldi py-4 text-primary hover:font-bold">Metas de Salud</h4>
+                        <p className="my-4 px-2">Recibe orientacion y recomendaciones para un cuidado personal y alimenticio.<br/><br/><br/></p>
+                        <hr className="border-1 border-primary absolute w-full" />
+                    </div>                    
                 </div>
             </section>
 
 
-            <footer className='text-center bg-red-50 p-6 sm:px-20 sm:py-10 mt-20 rounded-tr-3xl rounded-tl-3xl space-y-8'>
+            <footer className='text-center bg-primary/10 p-6 sm:px-20 sm:py-10 mt-20 rounded-tr-3xl rounded-tl-3xl space-y-8'>
 
                 <div className='flex justify-between items-center'>
-                    <div className='text-3xl font-extrabold text-amber-800'>Contact US</div>
+                    <div className='text-3xl font-extrabold text-primary'>Contact US</div>
                     <ul className='flex gap-4'>
                         <li><FaFacebook className='text-2xl' /></li>
                         <li><FaSquareInstagram className='text-2xl' /></li>
@@ -163,23 +161,13 @@ export const Home = () => {
                         <p className='font-bold my-2'>Email: admin@vet.com</p>
                         <p className='font-bold'>Phone: 0995644186</p>
                     </div>
-                    <div className='flex-1 sm:max-w-1/2'>
-                        <form action="#" className='w-full p-4'>
-                            <fieldset className='border-2 border-amber-900 p-4 rounded-sm '>
-                                <legend className='bg-amber-950 w-full text-left text-white pl-2 py-2'>Subcribe our newsletter</legend>
-                                <div className='flex justify-between gap-4'>
-                                    <input type="email" placeholder="Enter your email" className='sm:flex-1 border border-gray-300 rounded-md focus:outline-none px-2' />
-                                    <button className='flex-1 sm:max-w-40 border bg-amber-950 p-1 rounded-lg text-white'>Send</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
+                    
                 </div>
 
-                <hr className='border-1 border-amber-800' />
+                <hr className='border-1 border-primary' />
 
                 <p className='font-semibold'>
-                    copyright - © - BYRONTOSH
+                    copyright - © - NUTRIAPP
                 </p>
             </footer>
 

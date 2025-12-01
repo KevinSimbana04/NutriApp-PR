@@ -1,28 +1,51 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router"
+import {useFetch} from '../hooks/useFetch'
+import { ToastContainer } from 'react-toastify'
+import { useForm } from 'react-hook-form'
+import storeAuth from "../context/storeAuth"
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const  fetchDataBackend = useFetch()
+    const { setToken, setRol } = storeAuth()
 
+    const loginUser = async(dataForm) => {
+        const url = `${import.meta.env.VITE_BACKEND_URL}/veterinario/login`
+        const response = await fetchDataBackend(url, dataForm,'POST')
+        setToken(response.token)
+        setRol(response.rol)
+        if(response){
+            navigate('/dashboard')
+        }
+    }
 
     return (
-        <div className="flex flex-col sm:flex-row h-screen">
-            {/* Imagen de fondo */}
-            <div className="w-full sm:w-1/2 h-1/3 sm:h-screen bg-[url('/public/images/doglogin.jpg')] 
-            bg-no-repeat bg-cover bg-center sm:block hidden">
-            </div>
+        <div className="relative h-screen">
 
-            {/* Contenedor de formulario */}
-            <div className="w-full sm:w-1/2 h-screen flex justify-center items-center" style={{ backgroundColor: 'var(--color-base)' }}>
-                <div className="md:w-4/5 sm:w-full">
-                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase" style={{ color: 'var(--color-primary)' }}>Welcome Back</h1>
+            <ToastContainer />
+
+            {/* Fondo en toda la pantalla (detrás) */}
+            <div className="absolute inset-0 bg-no-repeat bg-cover bg-center z-0" style={{ backgroundImage: "url('/public/images/loginBackground.jpg')" }} aria-hidden="true" />
+            {/* Capa de overlay suave para mejorar contraste (sólo fondo) */}
+            <div className="absolute inset-0 bg-black/30 z-0" aria-hidden="true" />
+
+            {/* Contenedor del formulario centrado (ventana flotante) */}
+            <div className="flex items-center justify-center h-full">
+                <div className="md:w-4/5 sm:w-full max-w-md rounded-xl shadow-lg p-8 relative z-10" style={{ backgroundColor: 'var(--color-base)' }}>
+                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase">Welcome Back</h1>
                     <small className="block my-4 text-sm" style={{ color: 'var(--color-secondary)' }}>Please enter your details</small>
 
-                    <form>
+                    <form onSubmit={handleSubmit(loginUser)}>
                         {/* Correo electrónico */}
                         <div className="mb-3">
                             <label className="mb-2 block text-sm font-semibold">Email</label>
-                            <input type="email" placeholder="Enter your email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                            <input type="email" placeholder="Enter your email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" 
+                            {...register("email", { required: "El correo es obligatorio" })}
+                            />
+                            {errors.email && <p className="text-red-800">{errors.email.message}</p>}
                         </div>
 
                         {/* Contraseña */}
@@ -33,7 +56,9 @@ const Login = () => {
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Enter your password"
                                     className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500 pr-10"
-                                />
+                                    {...register("password", { required: "La contraseña es obligatoria" })}
+                                    />
+                                    {errors.password && <p className="text-red-800">{errors.password.message}</p>}
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
@@ -53,9 +78,8 @@ const Login = () => {
                         </div>
 
                         {/* Botón de iniciar sesión */}
-                        <div className="my-4">
-                            <Link to="/dashboard" className="py-2 w-full block text-center border rounded-xl hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white" style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}>Sign In</Link>
-                        </div>
+                        <button className="py-2 w-full block text-center bg-gray-500 text-slate-300 border rounded-xl 
+                            hover:scale-100 duration-300 hover:bg-gray-900 hover:text-white">Iniciar sesión</button>
                     </form>
 
                     {/* Separador con opción de "O" */}

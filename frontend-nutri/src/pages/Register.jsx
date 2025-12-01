@@ -15,19 +15,22 @@ export const Register = () => {
     }
 
     return (
-        <div className="flex flex-col sm:flex-row h-screen">
+        <div className="relative h-screen">
 
             <ToastContainer />
 
-            {/* Sección de formulario de registro */}
-            <div className="w-full sm:w-1/2 h-screen flex justify-center items-center" style={{ backgroundColor: 'var(--color-base)' }}>
+            {/* Fondo en toda la pantalla (detrás) - usando la imagen de registro */}
+            <div className="absolute inset-0 bg-no-repeat bg-cover bg-center z-0" style={{ backgroundImage: "url('/public/images/loginBackground.jpg')" }} aria-hidden="true" />
+            {/* Overlay suave para mejorar contraste (solo fondo) */}
+            <div className="absolute inset-0 bg-black/30 z-0" aria-hidden="true" />
 
-                <div className="md:w-4/5 sm:w-full">
-                    {/* Contenedor del formulario */}
+            {/* Contenedor centrado del formulario (ventana flotante opaca) */}
+            <div className="flex items-center justify-center h-full">
+                <div className="md:w-4/5 sm:w-full max-w-md rounded-xl shadow-lg p-8 relative z-10" style={{ backgroundColor: 'var(--color-base)' }}>
 
-                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase" style={{ color: 'var(--color-primary)' }}>Welcome</h1>
-                    <small className="block my-4 text-sm" style={{ color: 'var(--color-secondary)' }}>Please enter your details</small> 
-                    
+                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase">Welcome</h1>
+                    <small className="block my-4 text-sm" style={{ color: 'var(--color-secondary)' }}>Please enter your details</small>
+
                     <form onSubmit={handleSubmit(registerUser)}>
 
                         {/* Campo para nombre */}
@@ -80,19 +83,17 @@ export const Register = () => {
                             <label className="mb-2 block text-sm font-semibold">Password</label>
                             <div className="relative">
                                 <input
-                                    type={showPassword ? "text" : "password"} // Cambia el tipo del input entre 'text' y 'password' según el estado
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="********************"
                                     className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500 pr-10"
                                     {...register("password", { required: "La contraseña es obligatoria" })}
                                 />
                                     {errors.password && <p className="text-red-800">{errors.password.message}</p>}
-                                {/* Botón para mostrar/ocultar la contraseña */}
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)} // Cambia el estado para mostrar/ocultar la contraseña
+                                    onClick={() => setShowPassword(!showPassword)}
                                     className="absolute top-2 right-3 text-gray-500 hover:text-gray-700"
                                 >
-                                    {/* Icono que cambia según el estado de la contraseña */}
                                     {showPassword ? (
                                         <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A9.956 9.956 0 0112 19c-4.418 0-8.165-2.928-9.53-7a10.005 10.005 0 0119.06 0 9.956 9.956 0 01-1.845 3.35M9.9 14.32a3 3 0 114.2-4.2m.5 3.5l3.8 3.8m-3.8-3.8L5.5 5.5" />
@@ -120,11 +121,7 @@ export const Register = () => {
                     </div>
 
                 </div>
-
             </div>
-
-            {/* Sección con imagen de fondo, solo visible en pantallas grandes */}
-            <div className="w-full sm:w-1/2 h-1/3 sm:h-screen bg-[url('/public/images/dogregister.jpg')] bg-no-repeat bg-cover bg-center sm:block hidden"></div>
         </div>
     );
 };
