@@ -3,7 +3,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import mealRoutes from './routers/mealRoutes.js'; // Asegúrate que la ruta es correcta y tiene la extensión .js
+import mealRoutes from './routers/mealRoutes.js'; 
 import routerEstudiante from './routers/estudianteRoutes.js';
 
 // Inicializaciones
@@ -24,8 +24,7 @@ app.get('/', (req, res) => {
     res.send('Servidor de Recetas TheMealDB funcionando. Prueba /api/meals/random o /api/meals/search?name=chicken');
 });
 
-// ESTUDIANTE REGISTRO
-// Ruta principal
+
 app.get('/',(req,res)=>res.send("Server on"))
 
 // Rutas para veterinarios
